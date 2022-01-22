@@ -12,5 +12,11 @@
         "*.db": true,
         ".gitignore": true,
         ".vs": true
+    },
+    "C_Cpp.errorSquiggles": "Disabled",
+    "files.associations": {
+        "setautobank.h": "c",
+        "spritemanager.h": "c",
+        "keys.h": "c"
     }
 }
