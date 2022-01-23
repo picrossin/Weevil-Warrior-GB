@@ -49,6 +49,10 @@ void START() {
 	scroll_target = SpriteManagerAdd(SpritePlayer, start_positions[current_level].start_x, start_positions[current_level].start_y);
 	InitScroll(level->bank, level->map, collision_tiles, 0);
 	PlayMusic(Level_Music, 1);
+
+	NR52_REG = 0x80; // Enables sound, you should always setup this first
+	NR51_REG = 0xFF; // Enables all channels (left and right)
+	NR50_REG = 0x77; // Max volume
 }
 
 void UPDATE() {

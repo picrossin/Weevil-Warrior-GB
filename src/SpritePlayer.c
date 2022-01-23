@@ -2,6 +2,7 @@
 #include "Keys.h"
 #include "SpriteManager.h"
 #include "SpritePlayer.h"
+#include "Sound.h"
 #include "ZGBMain.h"
 
 CONTROL_STATE control_state;
@@ -78,6 +79,7 @@ void UPDATE() {
         case GROUNDED:
             // If player presses A, then jump
             if (KEY_TICKED(J_A)) {
+                PlayFx(CHANNEL_2, 10, 0x80, 0xA1, 0xD7, 0x86);
                 y_accel = JUMP_ACCEL;
                 control_state = IN_AIR;
                 gravity_offset = 0;
@@ -127,11 +129,13 @@ void UPDATE() {
 
             // Handle wall jumping
             if (KEY_PRESSED(J_RIGHT) && KEY_TICKED(J_A) && TranslateSprite(THIS, 1, 0)) {
+                PlayFx(CHANNEL_2, 10, 0x80, 0xA1, 0xD7, 0x86);
                 x_accel -= WALL_JUMP_OUT;
                 y_accel = WALL_JUMP_UP;
             }
             
             if (KEY_PRESSED(J_LEFT) && KEY_TICKED(J_A) && TranslateSprite(THIS, -1, 0)) {
+                PlayFx(CHANNEL_2, 10, 0x80, 0xA1, 0xD7, 0x86);
                 x_accel += WALL_JUMP_OUT;
                 y_accel = WALL_JUMP_UP;
             }
@@ -146,12 +150,14 @@ void UPDATE() {
             }
         } else if (spr->type == SpriteCorn) {
             if (CheckCollision(THIS, spr)) {
+                PlayFx(CHANNEL_1, 10, 0x2B, 0x02, 0xF2, 0xD6, 0x86);
                 SpriteManagerRemoveSprite(spr);
             	SpriteManagerAdd(SpriteBubble, spr->x, spr->y);
             }
         } else if (spr->type == SpriteSpikeDown || spr->type == SpriteSpikeUp || spr->type == SpriteSpikeLeft || spr->type == SpriteSpikeRight || \
         spr->type == SpriteEnemy || spr->type == SpriteCornPit) {
             if (CheckCollision(THIS, spr)) {
+                PlayFx(CHANNEL_1, 10, 0x4f, 0xc7, 0xf3, 0x73, 0x86);
                 SpriteManagerRemoveSprite(THIS);
             	SpriteManagerAdd(SpriteDeath, THIS->x, THIS->y);
             }
