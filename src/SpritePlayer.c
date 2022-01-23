@@ -9,29 +9,58 @@ CONTROL_STATE control_state;
 const UINT8 anim_idle[] = {2, 0, 1};
 const UINT8 anim_walk[] = {2, 2, 3};
 
+INT8 x_accel;
 INT8 y_accel;
 UINT8 gravity_offset;
+UINT8 run_offset;
 unsigned char jumped;
+unsigned char walked;
 
 void START() {
+    x_accel = 0;
     y_accel = 0;
     gravity_offset = 0;
-    jumped = 0;
+    run_offset = 0;
+    jumped = FALSE;
+    walked = FALSE;
 }
 
 void UPDATE() {
     UINT8 i;
     Sprite* spr;
 
+    walked = FALSE;
+
     if (KEY_PRESSED(J_LEFT)) {
-        TranslateSprite(THIS, -1, 0);
+        walked = TRUE;
+        if (x_accel > -MAX_RUN_SPEED) {
+            x_accel--;
+        }
         SetSpriteAnim(THIS, anim_walk, 15);
     }
 
     if (KEY_PRESSED(J_RIGHT)) {
-        TranslateSprite(THIS, 1, 0);
+        walked = TRUE;
+        if (x_accel < MAX_RUN_SPEED) {
+            x_accel++;
+        }
         SetSpriteAnim(THIS, anim_walk, 15);
-    }        
+    }
+
+    if (walked == FALSE && x_accel != 0) {
+        if (x_accel > 0) {
+            x_accel--;
+        } else if (x_accel < 0) {
+            x_accel++;
+        }
+    }
+
+    // Move in x direction
+    run_offset++;
+    if (run_offset >= RUN_WAIT) {
+        TranslateSprite(THIS, x_accel, 0);
+        run_offset = 0;
+    }
 
     if (keys == 0) {
         SetSpriteAnim(THIS, anim_idle, 15);
@@ -44,7 +73,7 @@ void UPDATE() {
                 y_accel = JUMP_ACCEL;
                 control_state = IN_AIR;
                 gravity_offset = 0;
-                jumped = 1;
+                jumped = TRUE;
             } else {
                 // If the player is not trying to jump, keep them on the ground
                 if (TranslateSprite(THIS, 0, 1)) {
@@ -56,9 +85,9 @@ void UPDATE() {
             }
             break;
         case IN_AIR:
-            if (KEY_RELEASED(J_A) && jumped == 1 && y_accel < 0) {
+            if (KEY_RELEASED(J_A) && jumped == TRUE && y_accel < 0) {
                 y_accel = -1;
-                jumped = 0;
+                jumped = FALSE;
             }
 
             if (y_accel <= MAX_JUMP_ACCEL) {
@@ -79,6 +108,17 @@ void UPDATE() {
                 }
 
                 y_accel = 0;
+            }
+
+            // Handle wall jumping
+            if (KEY_PRESSED(J_RIGHT) && KEY_TICKED(J_A) && TranslateSprite(THIS, 1, 0)) {
+                x_accel -= WALL_JUMP_OUT;
+                y_accel = WALL_JUMP_UP;
+            }
+            
+            if (KEY_PRESSED(J_LEFT) && KEY_TICKED(J_A) && TranslateSprite(THIS, -1, 0)) {
+                x_accel += WALL_JUMP_OUT;
+                y_accel = WALL_JUMP_UP;
             }
             break;
     }
