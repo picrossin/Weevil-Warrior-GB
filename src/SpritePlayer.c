@@ -16,6 +16,8 @@ UINT8 run_offset;
 unsigned char jumped;
 unsigned char walked;
 
+UINT8 grainMoveWait;
+
 void START() {
     x_accel = 0;
     y_accel = 0;
@@ -23,6 +25,13 @@ void START() {
     run_offset = 0;
     jumped = FALSE;
     walked = FALSE;
+
+    grainMoveWait = 0;
+
+    // Spawn grain
+    for (UINT8 i = 0; i < 16; i++) {
+    	SpriteManagerAdd(SpriteGrain, i * 8, 445);
+    }
 }
 
 void UPDATE() {
@@ -122,14 +131,26 @@ void UPDATE() {
             }
             break;
     }
+
+    grainMoveWait++;
     
-    // SPRITEMANAGER_ITERATE(i, spr) {
-    //     if (spr->type == SpriteEnemy) {
-    //         if (CheckCollision(THIS, spr)) {
-    //             SetState(StateGame);
-    //         }
-    //     }
-    // }
+    SPRITEMANAGER_ITERATE(i, spr) {
+        // if (spr->type == SpriteEnemy) {
+        //     if (CheckCollision(THIS, spr)) {
+        //         SetState(StateGame);
+        //     }
+        // }
+        // Move grain
+        if (spr->type == SpriteGrain) {
+            if (grainMoveWait >= GRAIN_WAIT) {
+                spr->y -= 8;
+            }
+        }
+    }
+
+    if (grainMoveWait >= GRAIN_WAIT) {
+        grainMoveWait = 0;
+    }
 }
 
 void DESTROY() {

@@ -7,6 +7,8 @@
 #define MAX_RUN_SPEED  2
 #define RUN_WAIT       0
 
+#define GRAIN_WAIT 100
+
 #define FALSE 0
 #define TRUE  1
 
