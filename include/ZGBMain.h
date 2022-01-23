@@ -2,6 +2,7 @@
 #define ZGBMAIN_H
 
 #define STATES \
+_STATE(StateTitle)\
 _STATE(StateGame)\
 STATE_DEF_END
 
