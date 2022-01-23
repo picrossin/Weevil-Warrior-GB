@@ -1,6 +1,6 @@
-#define JUMP_ACCEL    -3
+#define JUMP_ACCEL    -4
 #define WALL_JUMP_UP  -4
-#define WALL_JUMP_OUT  9
+#define WALL_JUMP_OUT  7
 #define MAX_JUMP_ACCEL 2
 #define GRAVITY        1
 #define GRAVITY_WAIT   3

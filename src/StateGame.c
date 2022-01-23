@@ -6,10 +6,11 @@
 #include "Music.h"
 
 IMPORT_TILES(font);
-UINT8 collision_tiles[] = {1, 0};
+UINT8 collision_tiles[] = {33, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 0};
 
 IMPORT_MAP(map);
 IMPORT_MAP(map1);
+IMPORT_MAP(level1);
 
 struct MapInfoBanked {
 	UINT8 bank;
@@ -20,7 +21,8 @@ struct MapInfoBanked {
 
 const struct MapInfoBanked levels[] = {
 	BANKED_MAP(map),
-	BANKED_MAP(map1)
+	BANKED_MAP(map1),
+	BANKED_MAP(level1)
 };
 
 typedef struct {
@@ -30,7 +32,8 @@ typedef struct {
 
 const START_POS start_positions[] = {
 	{20, 440},
-	{20, 300}
+	{20, 300},
+	{20, 440}
 };
 
 extern UINT8 current_level = 0;
