@@ -12,7 +12,7 @@ _SPRITE_DMG(SpriteSpikeUp, spikes)\
 _SPRITE_DMG(SpriteSpikeDown, spikesDown)\
 _SPRITE_DMG(SpriteSpikeLeft, spikesLeft)\
 _SPRITE_DMG(SpriteSpikeRight, spikesRight)\
-_SPRITE_DMG(SpriteGrain, grainWave)\
+_SPRITE_DMG(SpriteLadder, ladder)\
 SPRITE_DEF_END
 
 #include "ZGBMain_Init.h"
