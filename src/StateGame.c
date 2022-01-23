@@ -65,8 +65,12 @@ void UPDATE() {
 }
 
 void NextLevel() {
-	current_level++;
-	SetState(StateGame);
+	if (current_level == 5) {
+		SetState(StateEnd);
+	} else {
+		current_level++;
+		SetState(StateGame);
+	}
 }
 
 void ReloadLevel() {

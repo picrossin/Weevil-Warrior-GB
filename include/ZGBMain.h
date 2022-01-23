@@ -2,8 +2,8 @@
 #define ZGBMAIN_H
 
 #define STATES \
-_STATE(StateCredits)\
 _STATE(StateTitle)\
+_STATE(StateEnd)\
 _STATE(StateGame)\
 STATE_DEF_END
 
