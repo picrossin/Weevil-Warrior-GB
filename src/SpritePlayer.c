@@ -7,10 +7,12 @@
 
 CONTROL_STATE control_state;
 
+// Animations for player
 const UINT8 anim_idle[] = {2, 0, 1};
 const UINT8 anim_walk[] = {2, 2, 3};
 const UINT8 anim_jump[] = {1, 4};
 
+// Player settings and variables
 INT8 x_accel;
 INT8 y_accel;
 UINT8 gravity_offset;
@@ -20,6 +22,7 @@ unsigned char jumped;
 unsigned char walked;
 
 void START() {
+    // Ensure all variables are initialized
     x_accel = 0;
     y_accel = 0;
     gravity_offset = 0;
@@ -35,6 +38,7 @@ void UPDATE() {
 
     walked = FALSE;
 
+    // Handle left and right walking
     if (KEY_PRESSED(J_LEFT)) {
         walked = TRUE;
         THIS->mirror = V_MIRROR;
@@ -51,6 +55,7 @@ void UPDATE() {
         }
     }
 
+    // Handle walking negative acceleration
     if (walked == FALSE && x_accel != 0) {
         if (x_accel > 0) {
             x_accel--;
@@ -73,24 +78,23 @@ void UPDATE() {
         THIS->x = 159;
     }
 
+    // Set idle animation
     if (keys == 0) {
         SetSpriteAnim(THIS, anim_idle, 15);
     }
 
+    // Handle vertical movement states (grounded or in the air)
     switch (control_state) {
         case GROUNDED:
             // If player presses A, then jump
             if (KEY_TICKED(J_A)) {
-                PlayFx(CHANNEL_2, 10, 0x80, 0xA1, 0xD7, 0x86);
-                y_accel = JUMP_ACCEL;
-                control_state = IN_AIR;
-                gravity_offset = 0;
-                jumped = TRUE;
+                Jump();
             } else {
                 // If the player is not trying to jump, keep them on the ground
                 if (TranslateSprite(THIS, 0, 1)) {
                     y_accel = 0;
                     control_state = GROUNDED;
+                    jumped = FALSE;
                     coyote_time = COYOTE_WAIT;
                 } else {
                     control_state = IN_AIR;
@@ -103,13 +107,24 @@ void UPDATE() {
             }
             break;
         case IN_AIR:
-            if (KEY_RELEASED(J_A) && jumped == TRUE && y_accel < 0) {
-                y_accel = -1;
-                jumped = FALSE;
+            // Handle coyote time jumping
+            if (coyote_time > 0) { 
+                coyote_time--;
+
+                if (KEY_TICKED(J_A) && jumped == FALSE && y_accel > 0) {
+                    Jump();
+                    coyote_time = 0;
+                }
             }
 
+            if (KEY_RELEASED(J_A) && jumped == TRUE && y_accel < 0) {
+                y_accel = -1;
+            }
+
+            // Set jump sprite
             SetSpriteAnim(THIS, anim_jump, 15);
 
+            // Add gravity
             if (y_accel <= MAX_JUMP_ACCEL) {
                 if (gravity_offset == GRAVITY_WAIT) {
                     y_accel += GRAVITY;
@@ -119,6 +134,7 @@ void UPDATE() {
                 }
             }
 
+            // Check if back on ground and transition states
             if (TranslateSprite(THIS, 0, y_accel)) {
                 if (y_accel < 0) {
                     y_accel = 0;
@@ -145,6 +161,7 @@ void UPDATE() {
             break;
     }
 
+    // Handle collisions with other sprites
     SPRITEMANAGER_ITERATE(i, spr) {
         if (spr->type == SpriteLadder) {
             if (CheckCollision(THIS, spr)) {
@@ -166,13 +183,15 @@ void UPDATE() {
             }
         }
     }
-
-    // DEBUG
-    if (KEY_PRESSED(J_B)) {
-        SpriteManagerRemoveSprite(THIS);
-        NextLevel();
-    }
 }
 
 void DESTROY() {
+}
+
+void Jump() {
+    PlayFx(CHANNEL_2, 10, 0x80, 0xA1, 0xD7, 0x86);
+    y_accel = JUMP_ACCEL;
+    control_state = IN_AIR;
+    gravity_offset = 0;
+    jumped = TRUE;
 }

@@ -65,6 +65,7 @@ void UPDATE() {
 }
 
 void NextLevel() {
+	// If it is the final level, go to the end scene
 	if (current_level == 5) {
 		SetState(StateEnd);
 	} else {
