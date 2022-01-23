@@ -144,11 +144,16 @@ void UPDATE() {
                 NextLevel();
                 break;
             }
-        }
-
-        if (spr->type == SpriteCorn) {
+        } else if (spr->type == SpriteCorn) {
             if (CheckCollision(THIS, spr)) {
                 SpriteManagerRemoveSprite(spr);
+            	SpriteManagerAdd(SpriteBubble, spr->x, spr->y);
+            }
+        } else if (spr->type == SpriteSpikeDown || spr->type == SpriteSpikeUp || spr->type == SpriteSpikeLeft || spr->type == SpriteSpikeRight || \
+        spr->type == SpriteEnemy || spr->type == SpriteCornPit) {
+            if (CheckCollision(THIS, spr)) {
+                SpriteManagerRemoveSprite(THIS);
+            	SpriteManagerAdd(SpriteDeath, THIS->x, THIS->y);
             }
         }
     }

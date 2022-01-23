@@ -58,3 +58,7 @@ void NextLevel() {
 	current_level++;
 	SetState(StateGame);
 }
+
+void ReloadLevel() {
+	SetState(StateGame);
+}

@@ -17,6 +17,8 @@ _SPRITE_DMG(SpriteSpikeRight, spikesRight)\
 _SPRITE_DMG(SpriteLadder, ladder)\
 _SPRITE_DMG(SpriteCorn, corn)\
 _SPRITE_DMG(SpriteCornPit, cornTop)\
+_SPRITE_DMG(SpriteBubble, pop)\
+_SPRITE_DMG(SpriteDeath, pop)\
 SPRITE_DEF_END
 
 #include "ZGBMain_Init.h"
