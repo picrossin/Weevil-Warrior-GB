@@ -28,10 +28,12 @@ void START() {
 
     grainMoveWait = 0;
 
+    // SpriteManagerAdd(SpriteGrain, 30, 445);
+
     // Spawn grain
-    for (UINT8 i = 0; i < 16; i++) {
-    	SpriteManagerAdd(SpriteGrain, i * 8, 445);
-    }
+    // for (UINT8 i = 0; i < 5; i++) {
+    //     SpriteManagerAdd(SpriteGrain, (8 * 5) + (i * 16), 445);
+    // }
 }
 
 void UPDATE() {
@@ -69,6 +71,13 @@ void UPDATE() {
     if (run_offset >= RUN_WAIT) {
         TranslateSprite(THIS, x_accel, 0);
         run_offset = 0;
+    }
+
+    // Level wrapping
+    if (THIS->x > 160) {
+        THIS->x = 0;
+    } else if (THIS->x <= 1) {
+        THIS->x = 159;
     }
 
     if (keys == 0) {
