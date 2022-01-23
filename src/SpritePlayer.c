@@ -136,6 +136,12 @@ void UPDATE() {
                 NextLevel();
             }
         }
+
+        if (spr->type == SpriteCorn) {
+            if (CheckCollision(THIS, spr)) {
+                SpriteManagerRemoveSprite(spr);
+            }
+        }
     }
 
     // DEBUG
