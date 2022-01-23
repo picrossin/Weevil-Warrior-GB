@@ -9,6 +9,9 @@ STATE_DEF_END
 _SPRITE_DMG(SpritePlayer, player)\
 _SPRITE_DMG(SpriteEnemy, enemy)\
 _SPRITE_DMG(SpriteSpikeUp, spikes)\
+_SPRITE_DMG(SpriteSpikeDown, spikesDown)\
+_SPRITE_DMG(SpriteSpikeLeft, spikesLeft)\
+_SPRITE_DMG(SpriteSpikeRight, spikesRight)\
 SPRITE_DEF_END
 
 #include "ZGBMain_Init.h"
