@@ -3,15 +3,14 @@
 #include "ZGBMain.h"
 #include "Scroll.h"
 #include "Keys.h"
+#include "Music.h"
 
 IMPORT_MAP(titleScreen);
+DECLARE_MUSIC(Main_Menu);
 
 void START() {
 	InitScroll(BANK(titleScreen), &titleScreen, 0, 0);
-
-	// PRINT(3, 5, "Shield Bouncer");
-	// PRINT(6, 15, "by Zal0");
-	// PRINT(4, 16, "2018 zgbjam");
+	PlayMusic(Main_Menu, 1);
 }
 
 extern UINT8 current_level;
