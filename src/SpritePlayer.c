@@ -15,6 +15,7 @@ INT8 x_accel;
 INT8 y_accel;
 UINT8 gravity_offset;
 UINT8 run_offset;
+UINT8 coyote_time;
 unsigned char jumped;
 unsigned char walked;
 
@@ -23,6 +24,7 @@ void START() {
     y_accel = 0;
     gravity_offset = 0;
     run_offset = 0;
+    coyote_time = 0;
     jumped = FALSE;
     walked = FALSE;
 }
@@ -89,6 +91,7 @@ void UPDATE() {
                 if (TranslateSprite(THIS, 0, 1)) {
                     y_accel = 0;
                     control_state = GROUNDED;
+                    coyote_time = COYOTE_WAIT;
                 } else {
                     control_state = IN_AIR;
                 }
@@ -128,13 +131,13 @@ void UPDATE() {
             }
 
             // Handle wall jumping
-            if (KEY_PRESSED(J_RIGHT) && KEY_TICKED(J_A) && TranslateSprite(THIS, 1, 0)) {
+            if (KEY_PRESSED(J_RIGHT) && KEY_TICKED(J_A) && TranslateSprite(THIS, 2, 0)) {
                 PlayFx(CHANNEL_2, 10, 0x80, 0xA1, 0xD7, 0x86);
                 x_accel -= WALL_JUMP_OUT;
                 y_accel = WALL_JUMP_UP;
             }
             
-            if (KEY_PRESSED(J_LEFT) && KEY_TICKED(J_A) && TranslateSprite(THIS, -1, 0)) {
+            if (KEY_PRESSED(J_LEFT) && KEY_TICKED(J_A) && TranslateSprite(THIS, -2, 0)) {
                 PlayFx(CHANNEL_2, 10, 0x80, 0xA1, 0xD7, 0x86);
                 x_accel += WALL_JUMP_OUT;
                 y_accel = WALL_JUMP_UP;
