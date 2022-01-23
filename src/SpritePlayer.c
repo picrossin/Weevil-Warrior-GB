@@ -142,6 +142,7 @@ void UPDATE() {
         if (spr->type == SpriteLadder) {
             if (CheckCollision(THIS, spr)) {
                 NextLevel();
+                break;
             }
         }
 
