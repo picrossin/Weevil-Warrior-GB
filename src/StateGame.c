@@ -9,6 +9,7 @@ IMPORT_TILES(font);
 UINT8 collision_tiles[] = {33, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 0};
 
 IMPORT_MAP(level1);
+IMPORT_MAP(level2);
 IMPORT_MAP(map);
 IMPORT_MAP(map1);
 
@@ -21,6 +22,7 @@ struct MapInfoBanked {
 
 const struct MapInfoBanked levels[] = {
 	BANKED_MAP(level1),
+	BANKED_MAP(level2),
 	BANKED_MAP(map),
 	BANKED_MAP(map1)
 };
@@ -32,6 +34,7 @@ typedef struct {
 
 const START_POS start_positions[] = {
 	{30, 440},
+	{30, 350},
 	{20, 300},
 	{50, 440}
 };
