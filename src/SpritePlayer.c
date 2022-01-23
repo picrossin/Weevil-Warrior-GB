@@ -18,8 +18,6 @@ UINT8 run_offset;
 unsigned char jumped;
 unsigned char walked;
 
-extern UINT16 score;
-
 void START() {
     x_accel = 0;
     y_accel = 0;
@@ -153,7 +151,6 @@ void UPDATE() {
         } else if (spr->type == SpriteCorn) {
             if (CheckCollision(THIS, spr)) {
                 PlayFx(CHANNEL_1, 10, 0x2B, 0x02, 0xF2, 0xD6, 0x86);
-	            score += 100;
                 SpriteManagerRemoveSprite(spr);
             	SpriteManagerAdd(SpriteBubble, spr->x, spr->y);
             }
