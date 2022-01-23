@@ -42,7 +42,7 @@ const START_POS start_positions[] = {
 	{30, 640},
 	{15, 15},
 	{30, 600},
-	{30, 450},
+	{120, 450},
 };
 
 UINT8 current_level = 0;
