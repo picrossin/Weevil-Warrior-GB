@@ -14,6 +14,8 @@ IMPORT_MAP(window);
 IMPORT_MAP(level1);
 IMPORT_MAP(level2);
 IMPORT_MAP(level3);
+IMPORT_MAP(level4);
+IMPORT_MAP(level5);
 IMPORT_MAP(map);
 IMPORT_MAP(map1);
 
@@ -28,6 +30,8 @@ const struct MapInfoBanked levels[] = {
 	BANKED_MAP(level1),
 	BANKED_MAP(level2),
 	BANKED_MAP(level3),
+	BANKED_MAP(level4),
+	BANKED_MAP(level5),
 	BANKED_MAP(map),
 	BANKED_MAP(map1)
 };
@@ -41,6 +45,8 @@ const START_POS start_positions[] = {
 	{30, 440},
 	{30, 350},
 	{30, 625},
+	{15, 15},
+	{30, 575},
 	{20, 300},
 	{50, 440}
 };
