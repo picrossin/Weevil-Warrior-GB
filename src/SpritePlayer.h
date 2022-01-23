@@ -4,8 +4,8 @@
 #define MAX_JUMP_ACCEL 2
 #define GRAVITY        1
 #define GRAVITY_WAIT   3
-#define MAX_RUN_SPEED  4
-#define RUN_WAIT       2
+#define MAX_RUN_SPEED  2
+#define RUN_WAIT       0
 
 #define FALSE 0
 #define TRUE  1

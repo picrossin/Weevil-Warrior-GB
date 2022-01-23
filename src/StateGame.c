@@ -11,7 +11,7 @@ IMPORT_MAP(map);
 DECLARE_MUSIC(Level_Music);
 
 void START() {
-	scroll_target = SpriteManagerAdd(SpritePlayer, 20, 50);
+	scroll_target = SpriteManagerAdd(SpritePlayer, 20, 440);
 	InitScroll(BANK(map), &map, collision_tiles, 0);
 	PlayMusic(Level_Music, 1);
 }
