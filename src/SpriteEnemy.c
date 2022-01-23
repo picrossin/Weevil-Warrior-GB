@@ -17,6 +17,12 @@ void UPDATE() {
     CUSTOM_DATA* data = (CUSTOM_DATA*)THIS->custom_data;
     if (TranslateSprite(THIS, data->vx, 0)) {
         data->vx = -data->vx;
+
+        if (THIS->mirror == V_MIRROR) {
+            THIS->mirror = NO_MIRROR;
+        } else {
+            THIS->mirror = V_MIRROR;
+        }
     }
 }
 
