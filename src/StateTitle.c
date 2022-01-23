@@ -18,7 +18,6 @@ void NextLevel();
 void UPDATE() {
 	if (keys) {
 		current_level = 0;
-
 		current_level--;
 		NextLevel();
 	}

@@ -36,7 +36,7 @@ const START_POS start_positions[] = {
 	{50, 440}
 };
 
-extern UINT8 current_level = 0;
+UINT8 current_level = 0;
 
 DECLARE_MUSIC(Level_Music);
 

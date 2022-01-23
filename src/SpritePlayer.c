@@ -8,6 +8,7 @@ CONTROL_STATE control_state;
 
 const UINT8 anim_idle[] = {2, 0, 1};
 const UINT8 anim_walk[] = {2, 2, 3};
+const UINT8 anim_jump[] = {1, 4};
 
 INT8 x_accel;
 INT8 y_accel;
@@ -33,18 +34,18 @@ void UPDATE() {
 
     if (KEY_PRESSED(J_LEFT)) {
         walked = TRUE;
+        THIS->mirror = V_MIRROR;
         if (x_accel > -MAX_RUN_SPEED) {
             x_accel--;
         }
-        SetSpriteAnim(THIS, anim_walk, 15);
     }
 
     if (KEY_PRESSED(J_RIGHT)) {
         walked = TRUE;
+        THIS->mirror = NO_MIRROR;
         if (x_accel < MAX_RUN_SPEED) {
             x_accel++;
         }
-        SetSpriteAnim(THIS, anim_walk, 15);
     }
 
     if (walked == FALSE && x_accel != 0) {
@@ -89,6 +90,11 @@ void UPDATE() {
                 } else {
                     control_state = IN_AIR;
                 }
+
+                // Animate walking
+                if (KEY_PRESSED(J_LEFT) || KEY_PRESSED(J_RIGHT)) {
+                    SetSpriteAnim(THIS, anim_walk, 15);
+                }
             }
             break;
         case IN_AIR:
@@ -96,6 +102,8 @@ void UPDATE() {
                 y_accel = -1;
                 jumped = FALSE;
             }
+
+            SetSpriteAnim(THIS, anim_jump, 15);
 
             if (y_accel <= MAX_JUMP_ACCEL) {
                 if (gravity_offset == GRAVITY_WAIT) {
